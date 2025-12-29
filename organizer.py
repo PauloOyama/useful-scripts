@@ -5,13 +5,15 @@ import shutil
 # Configuracao basica 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+#TODO: MAKE download_dir se tornar parametrizado
 download_dir = r"C:\Users\papal\Downloads"
 os.chdir(download_dir)
 
 for file in os.listdir(os.getcwd()):
 
     if not os.path.isfile(file):
-        logging.info(f"Arquivo \"{file}\" eh uma diretorio")
+        logging.info(f"Arquivo \"{file}\" eh um diretorio")
+        continue
     
     _, *extension = os.path.splitext(file)
     dir_extension_name = ''.join(extension)
@@ -27,10 +29,12 @@ for file in os.listdir(os.getcwd()):
     current_dir = os.getcwd()
     source_file = '\\'.join([current_dir,file])
     destination_file = '\\'.join([current_dir,dir_extension_name,file])
-    print(source_file)
-    print(destination_file)
+
+    logging.info(f"Pasta Origem - {source_file}")
+    logging.info(f"Pasta Destino - {destination_file}")
+
     try:
         shutil.move(source_file, destination_file)
     except  Exception as e:
         logging.info(f"Erro: Ao tentar mover o arquivo localizado {source_file} para {destination_file} -- {e}")
-    # print(os.path.splitext(file), "{}".format(os.stat(file).st_mtime))
+    # print(os.path.splitext(file), "{}".format(os.stat(file).st_mtime))z
