@@ -1,5 +1,6 @@
 import os 
 import logging
+import shutil
 
 # Configuracao basica 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -23,4 +24,13 @@ for file in os.listdir(os.getcwd()):
         except Exception as e :
             logging.error(f"Error: Ao tentar criar um diretorio da extensao {dir_extension_name} -- {e}")
     
+    current_dir = os.getcwd()
+    source_file = '\\'.join([current_dir,file])
+    destination_file = '\\'.join([current_dir,dir_extension_name,file])
+    print(source_file)
+    print(destination_file)
+    try:
+        shutil.move(source_file, destination_file)
+    except  Exception as e:
+        logging.info(f"Erro: Ao tentar mover o arquivo localizado {source_file} para {destination_file} -- {e}")
     # print(os.path.splitext(file), "{}".format(os.stat(file).st_mtime))
